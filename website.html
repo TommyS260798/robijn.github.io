@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Tommy Smits</title>
+	<meta name="viewport" content="widt=device-width, initial-scale=1">
+	<link rel="stylesheet" type='text/css' media="screen" href="./resume/styles/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Robijnstraat 44B</h1>
+        </div>
+
+    </div>
+    <label>
+        <p id="currentDayAndDate"></p>
+    </label>
+    <h1>Wie eter er mee?</h1>
+
+    <ul>
+        <li><input type="checkbox" id="item1"> <label for="item1">Hami</label></li>
+        <li><input type="checkbox" id="item2"> <label for="item2">Harry</label></li>
+        <li><input type="checkbox" id="item3"> <label for="item3">Smarty</label></li>
+        <li><input type="checkbox" id="item4"> <label for="item4">Legend</label></li>
+        <li><input type="checkbox" id="item5"> <label for="item5">La raar</label></li>
+        <li> <label for="item6"> + 1</label></li>
+        <select id="numberDropdown">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">vo</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+    </ul>
+    
+    <script>
+        // Check if there's a saved state in localStorage and update checkboxes accordingly
+        document.addEventListener("DOMContentLoaded", function() {
+            for (let i = 1; i <= 5; i++) {
+                const checkbox = document.getElementById(`item${i}`);
+                const isChecked = localStorage.getItem(`item${i}`) === "true";
+    
+                if (isChecked) {
+                    checkbox.checked = true;
+                }
+    
+                checkbox.addEventListener("change", function() {
+                    localStorage.setItem(`item${i}`, checkbox.checked);
+                });
+            }
+        });
+    </script>
+    
+
+    <script>
+        // Get the selected value from localStorage and set it as the selected option
+        document.addEventListener("DOMContentLoaded", function() {
+            const numberDropdown = document.getElementById("numberDropdown");
+            const storedValue = localStorage.getItem("selectedNumber");
+
+            if (storedValue) {
+                numberDropdown.value = storedValue;
+            }
+
+            // Update localStorage when the user changes the selected option
+            numberDropdown.addEventListener("change", function() {
+                const selectedValue = this.value;
+                localStorage.setItem("selectedNumber", selectedValue);
+            });
+        });
+
+        function checkAndResetValues() {
+            const now = new Date();
+            const currentHour = now.getHours();
+            const currentMinutes = now.getMinutes();
+
+            if (currentHour === 12 && currentMinutes === 0) {
+                resetValues();
+            }
+        }
+
+        // Set an interval to check and reset values every minute
+        setInterval(checkAndResetValues, 60000);
+        
+        // Display the current day and date
+        const currentDayAndDateElement = document.getElementById("currentDayAndDate");
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const currentDate = new Date().toLocaleDateString('en-US', options);
+        currentDayAndDateElement.textContent = `Today is ${currentDate}`;
+
+    </script>
+
+    <div class="card--project">
+        <a href="grocerylist.html" ><span>🛒 </span>Boodschappenlijstje</a>
+    </div>
+
+    <!-- Script JS -->
+    <script src="./script.js"></script>
+</body>
+
+
+</html>
